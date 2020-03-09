@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>D'Attero Andrea Projects</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+        <script>
+            function generateArticle(article){
+                return "<div class=\"card\"><div class=\"card-content\"><div class=\"media-content\"><p class=\"title is-5\">"+ article.title +"</p></div></div><div class=\"content\">"+article.topics+"<br>"+article.description+"</div><footer class=\"card-footer\"><a href=\""+article.link+"\" class=\"card-footer-item\">View Project!</a></footer></div>";
+            }
+            $.ajax({
+                url: "https://webhooks.mongodb-stitch.com/api/client/v2.0/app/blog-hanwg/service/blogservice/incoming_webhook/blogarticles",
+                success: function(data){
+                    for(var i = 0; i < data.length; i++){
+                        var article = generateArticle(data[i]);
+                        $("#articles").append(article);
+                    }
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <nav class="navbar is-dark">
+            <div class="navbar-brand">
+                <a href="./index.html" class="navbar-item">Home</a>
+                <a href="./about.html" class="navbar-item">About</a>
+                <a href="./projects.html" class="navbar-item">Projects</a>
+                <!--<a href="./blog.html" class="navbar-item">Blog</a>-->
+                <a href="./curriculum.html" class="navbar-item">Curriculum</a>
+            </div>
+        </nav>
+        <div class="columns">
+            <div class="column is-one-third"></div>
+            <div class="column is-one-third has-text-centered">
+                <div name="articles" class="articles" id="articles">
+
+                </div>
+            </div>
+            <div class="column is-one-third"></div>
+        </div>
+    </body>
+</html>
